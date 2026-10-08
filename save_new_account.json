@@ -5,6 +5,7 @@
           "password": "#Man5959",
           "balance": 52127000,
           "expiry": "02/78",
+          "salary":50000000,
           "cvv2": "1717",
           "id": 1
      },
@@ -14,6 +15,7 @@
           "password": "@Sadra1389",
           "balance": 45789000,
           "expiry": "05/29",
+          "salary":35000000,
           "cvv2": "1478",
           "id": 2
      },
@@ -23,6 +25,7 @@
           "password": "#Dry_ir.405",
           "balance": 271369000,
           "expiry": "08/30",
+          "salary":80000000,
           "cvv2": "1258",
           "id": 3
      },
@@ -31,6 +34,7 @@
           "user_name": "mammad1387",
           "password": "@Mammad2MaMAd",
           "expiry": "05/30",
+          "salary":25000000,
           "cvv2": "1478",
           "id": 4
      }
