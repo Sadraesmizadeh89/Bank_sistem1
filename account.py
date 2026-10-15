@@ -6,8 +6,11 @@ class Account:
     def account_balance(self):
         return f'Your account balance is equal to :{self.balance}'
     def changing_password(self):
-        password1 = input('Please enter your desired password (make sure the password is 4 digits long):')
-        password2 = input('Please enter your desired password again (make sure the password is 4 digits long):')
+        password1 = input('Please enter your desired password ' /
+                          '(make sure the password is 4 digits long):')
+        
+        password2 = input('Please enter your desired password again ' /
+                          '(make sure the password is 4 digits long):')
 
         
         if len(password1) == 4 and len(password2) == 4 and password1 == password2:

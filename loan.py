@@ -4,7 +4,7 @@ import random
 class Loan:
 
     def __init__(self, creat_request, salary, user_id):
-        self.creat_request = creat_request
+        self.create_request = creat_request
         self.salary = salary
         self.user_id = user_id
 
@@ -21,10 +21,10 @@ class Loan:
             content = loan.read()
 
             if not content:
-                self.creat_request = []
+                self.create_request = []
             else:
                 loan.seek(0)
-                self.creat_request = json.load(loan)
+                self.create_request = json.load(loan)
 
         with open('./save_new_account.json', 'r') as sal:
             self.salary = json.load(sal)
@@ -68,13 +68,31 @@ class Loan:
         interest_rate = [4,10,15,20,24,25]
         interest_rate = random.choice(interest_rate)
 
-        print(f'You are required to pay the bank an additional {interest_rate} as interest rate.')
-
         total_repayment = ((interest_rate // 100) * amount) + amount
 
-        self.dump_informations['loan_id'] = 1
+        print('You are required to pay the bank an additional' /
+              f'{interest_rate} as interest rate.')
+        
+        print(f'your total repayment is {total_repayment}' /
+              f'and you have to pay this money back in {installments} month.')
+
+        
+
+        result = 0
+        for i in self.create_request:
+            result += 1
+
+        print(self.dump_informations)
+        self.dump_informations['loan_id'] = result + 1
         self.dump_informations['user_id'] = self.user_id
         self.dump_informations['installments'] = installments
         self.dump_informations['amount'] = amount
-        self.dump_informations['intrest_rate'] = interest_rate
+        print(interest_rate)
+        self.dump_informations['interest_rate'] = interest_rate
         self.dump_informations['total_repayment'] = total_repayment
+        print(self.dump_informations)
+
+        self.create_request.append(self.dump_informations)
+
+        with open('./loan.json', 'w') as wri:
+            json.dump(self.create_request,wri,indent=5)
