@@ -105,7 +105,7 @@ class Bank:
 
                     if choice == '1':
 
-                        obj_found_transfer = Found_transfer('', '')
+                        obj_found_transfer = Found_transfer('', '','0',user['id'])
                         obj_found_transfer.found_transfer()
 
                     elif choice == '2':
