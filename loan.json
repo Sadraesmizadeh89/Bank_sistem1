@@ -1,0 +1,26 @@
+[
+     {
+          "loan_id": 1,
+          "user_id": 2,
+          "installments": "12",
+          "amount": "2000000",
+          "interest_rate": 10,
+          "total_repayment": "2000000"
+     },
+     {
+          "loan_id": 2,
+          "user_id": 2,
+          "installments": "24",
+          "amount": "2000000",
+          "interest_rate": 15,
+          "total_repayment": "2000000"
+     },
+     {
+          "loan_id": 3,
+          "user_id": 2,
+          "installments": "36",
+          "amount": "500000000",
+          "interest_rate": 20,
+          "total_repayment": "500000000"
+     }
+]

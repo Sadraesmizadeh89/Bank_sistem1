@@ -3,10 +3,12 @@ from checking_card import Check_Card
 import json
 
 class Found_transfer: 
-    def __init__(self,balance,audience_balance,distination_card_number= '0'):
+    def __init__(self,balance,audience_balance,distination_card_number= '0',user_id='',dist_id=''):
         self.balance = balance
         self.a_balance = audience_balance
         self.save_information = []
+        self.user_id = user_id
+        self.dist_id = dist_id
         self.record_tracking_code = {
             "distination_card_number":None,
             "transfer":None,
@@ -35,33 +37,32 @@ class Found_transfer:
                 self.save_information = json.load(file)
 
         flag = True
+
         while flag:
-                try:
-                    # print(repr(self.central_data))
-                    self.distination_card_number = input("Enter the distination_card_number number: ").strip()   # ,
+            self.distination_card_number = input("Enter the destination card number: ").strip()
 
-                    found = False
+            if not self.distination_card_number.isdigit():
+                print('Enter a valid card number')
+                continue
 
-                    for central in self.central_data:
-                        if self.distination_card_number == central['card_number']:
-                            found = True
+            found = False
 
-                            if central['is_active'] == 'True':
-                                print(f'This card belongs to: {central["user_name"]}')
-                            else:
-                                print('This card is not active')
+            for index, central in enumerate(self.central_data):
+                if self.distination_card_number == central['card_number']:
+                    found = True
 
-                            break
+                    if central.get('is_active') == 'True':
+                        print(f'This card belongs to: {central["user_name"]}')
 
-                    if not found:
-                        raise ValueError('Enter a valid destination card number')
-
-                    if self.distination_card_number.isdigit():
+                        self.dist_id = index
                         flag = False
                     else:
-                        raise ValueError('Enter a valid value')
-                except:
-                    print('Enter a valid value')
+                        print('This card is not active')
+
+                    break
+
+            if not found:
+                print('Enter a valid destination card number')
                         
         obj =  Check_Card(self.distination_card_number)
         print('sadra')
@@ -76,9 +77,12 @@ class Found_transfer:
             else:
                 print('Enter a valid amount')
         if transfer <= 10000000:
-            if (self.balance['balance'] - 20000) >= transfer:
-                self.balance['balance'] -= transfer
-                self.a_balance['balance'] += transfer
+            # print(type(self.balance))
+            # print(self.balance)
+            if (self.balance[self.user_id]['balance'] - 20000) >= transfer:
+
+                self.balance[self.user_id]['balance'] -= transfer
+                self.a_balance[self.dist_id]['balance'] += transfer
                 # self.w_central_data['balance'] += transfer
 
                 randoms_number = [str(i) for i in range(1, 11)]
@@ -104,13 +108,17 @@ class Found_transfer:
         
         else:
             return 'Sheba transaction completed.'
+
+        with open('./centeral_bank.json', 'w') as wbicb: #  wbicb-->write balance in centeral bank
+            json.dump(self.a_balance, wbicb)
+
     def sheba(self):
         print('Transaction is above 10,000,000 Toman. Using Sheba instead.')
 
         transfer = int(input('Enter the amount to be transferred: '))
 
-        self.balance['balance'] -= transfer
-        self.a_balance['balance'] += transfer
+        self.balance[self.user_id]['balance'] -= transfer
+        self.a_balance[self.dist_id]['balance'] += transfer
 
         randoms_number = [str(i) for i in range(1, 11)]
         k_r = random.sample(randoms_number, 5)
